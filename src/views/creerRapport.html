@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GSB</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
+    <link rel="stylesheet" href="../assets/css/header.css">
+    <link rel="stylesheet" href="../assets/css/rapportsListe.css">
+</head>
+<body>
+    <header class="d-flex justify-content-between align-items-center p-2 bg-white">
+        <img src="../assets/img/logo-gsb.png" id="logo" alt="logo">
+        <div class="d-flex justify-content-end align-items-center" id="connexion">
+            <div class="fs-5 mr-5 text-primary" id="pseudo"></div>
+            <i id="deconnexion" class="fas fa-power-off fs-5 text-primary"></i>
+        </div>
+    </header>
+    <main class="mx-auto d-flex align-items-center">
+        <div class="container login-container ">
+            <div class="row">
+                <div class="col-4"></div>
+                <div class="col-4 login-form-1 center px-5 py-4">
+                    <h3 class="text-center text-white mb-5">Créer un Rapport</h3>
+                    <form>
+                        <div class="form-group">
+                            <div class="input-group mb-2 d-flex flex-column">
+                                <label class="text-white">Bilan:</label>
+                                <textarea name="bilan" id="bilan" rows="5" placeholder="Bilan"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group mb-2 d-flex flex-column">
+                                <label class="text-white">Motif:</label>
+                                <textarea name="motif" id="motif" rows="5" placeholder="Motif"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group d-flex mt-4">
+                            <button type="submit"
+                                class="btnSubmit d-block m-auto rounded-pill bg-transparent text-primary px-3 py-2 border-primary fs-5 ">Créer</button>
+                            <button type="submit"
+                                class="btnSubmit d-block m-auto rounded-pill bg-transparent text-danger px-3 py-2 border-danger fs-5 ">Annuler</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-4"></div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

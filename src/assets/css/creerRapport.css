@@ -1,0 +1,17 @@
+body {
+    background: url(../img/fond.jpg);
+    background-size: cover;
+}
+
+main {
+    width: 80%;
+    height: 90vh;
+}
+
+.login-form-1 {
+    background-color: rgba(0, 0, 0, 0.37);
+}
+
+button {
+    width: 40%;
+}

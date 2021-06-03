@@ -1,0 +1,24 @@
+img {
+    width: 3%;
+}
+
+#deconnexion:hover {
+    color: #dc3545 !important;
+}
+
+#connexion div {
+    padding-right: 10px;
+    font-weight: bold;
+}
+
+#deconnexion,
+#logo {
+    cursor: pointer;
+}
+
+input:focus,
+textarea:focus,
+button:focus,
+select:focus {
+    outline: 0;
+}

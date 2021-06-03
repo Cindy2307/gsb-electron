@@ -1,0 +1,26 @@
+img {
+    width: 3%;
+}
+
+body {
+    background: url(../img/fond.jpg);
+    background-size: cover;
+    height: 100vh;
+}
+
+main {
+    width: 80%;
+    height: 90vh;
+}
+
+.input-group-text {
+    border-radius: 2px 0 0 2px;
+}
+
+.btnSubmit {
+    width: 60%;
+}
+
+.login-form-1 {
+    background-color: rgba(0, 0, 0, 0.37);
+}
