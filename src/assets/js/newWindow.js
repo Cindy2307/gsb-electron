@@ -20,6 +20,7 @@ ipcRenderer.on("deleteRapportFromMain", (event, data) => {
 
 async function getRapportByVisiteurId(data) {
     rapports.innerHTML = ""
+    liste.innerHTML = "<option value='' class='text-dark'>--Sélectionnez un rapport--</option>"
     const url = `http://localhost:3002/gsb/visiteur/${data[0]}/rapport`;
     let response = "";
 
@@ -36,7 +37,6 @@ async function getRapportByVisiteurId(data) {
 
     if (response.length === 0) {
         document.querySelector("#labels").style.display = "none";
-        document.querySelector("#idRapport").style.display = "none";
         rapports.insertAdjacentHTML("beforeend",
             `
                 <p id="aucunRapport" class="text-danger fs-5 mx-auto my-auto"> Vous n'avez rédigé aucun rapport.</p>

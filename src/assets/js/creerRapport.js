@@ -1,17 +1,12 @@
 const { ipcRenderer } = require("electron");
 const form = document.querySelector("form");
-const logo = document.querySelector("#logo");
-const deconnexion = document.querySelector("#deconnexion")
+const deconnexion = document.querySelector("#deconnexion");
+const annuler = document.querySelector("#annuler");
 
 deconnexion.addEventListener("click", (e) => {
      e.preventDefault()
      logout()
 })
-
-logo.addEventListener("click", (e) => {
-    e.preventDefault();
-    logout()
-});
 
 ipcRenderer.on("createRapportFromMain", (event, data) => {
     document.querySelector("#bilan").value = "";
@@ -23,6 +18,10 @@ ipcRenderer.on("createRapportFromMain", (event, data) => {
 form.addEventListener("submit", (e) => {
     e.preventDefault();
     createRapport();
+})
+
+annuler.addEventListener("click", () => {
+    ipcRenderer.send("createWindowClose")
 })
 
 async function createRapport() {

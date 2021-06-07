@@ -1,5 +1,4 @@
 const { ipcRenderer } = require("electron");
-
 const dateRapport = document.querySelector("#date");
 const motif = document.querySelector("#motif");
 const bilan = document.querySelector("#bilan");
@@ -7,6 +6,7 @@ const mofifier = document.querySelector("#modifier");
 const supprimer = document.querySelector("#supprimer");
 const deconnexion = document.querySelector("#deconnexion");
 let rapportId;
+let array;
 
 deconnexion.addEventListener("click", (e) => {
      e.preventDefault()
@@ -15,12 +15,21 @@ deconnexion.addEventListener("click", (e) => {
 
 ipcRenderer.on("rapportIdFromMain", (event, data) => {
     document.querySelector("#pseudo").innerHTML = data[0];
-    getRapportById(data)
-    console.log(data)
+    localStorage.setItem("data", data)
+    getRapportById()
 })
 
-async function getRapportById(data) {
-    const url = `http://localhost:3002/gsb/rapport/${data[1]}`;
+supprimer.addEventListener("click", (e) => {
+        e.preventDefault();
+        if (confirm("Voulez-vous vraiment supprimer ce rapport?")) {
+            rapportId = array[1];
+            deleteRapport(array[0]);
+        }
+    })
+
+async function getRapportById() {
+    array = localStorage.getItem("data").split(",");
+    const url = `http://localhost:3002/gsb/rapport/${array[1]}`;
     let response = "";
 
     const responseJson = await fetch(url, {
@@ -39,19 +48,11 @@ async function getRapportById(data) {
         bilan.innerHTML = response.bilan;
         dateRapport.innerHTML = `${date.getDate()} ${mois[date.getMonth()]} ${date.getFullYear()}`;
 
-        supprimer.addEventListener("click", (e) => {
+        modifier.addEventListener("click", (e) => {
             e.preventDefault();
-            if (confirm("Voulez-vous vraiment supprimer ce rapport?")) {
-                rapportId = response.id;
-                deleteRapport(data[0]);
-            }
+            ipcRenderer.send("updateRapportById", [array[0], array[1], response.bilan, response.motif]);
         })
     }
-    
-    modifier.addEventListener("click", (e) => {
-    e.preventDefault();
-    ipcRenderer.send("updateRapportById", data);
-})
 }
 
 

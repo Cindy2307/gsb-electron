@@ -5,13 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GSB</title>
-    <script defer src="../assets/js/creerRapport.js"></script>
+    <script defer src="../assets/js/modifierRapport.js"></script>
     <script defer src="../assets/js/deconnecter.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
     <link rel="stylesheet" href="../assets/css/header.css">
-    <link rel="stylesheet" href="../assets/css/rapportsListe.css">
+    <link rel="stylesheet" href="../assets/css/modifierRapport.css">
 </head>
 <body>
     <header class="d-flex justify-content-between align-items-center p-2 bg-white">
@@ -26,7 +26,7 @@
             <div class="row">
                 <div class="col-4"></div>
                 <div class="col-4 login-form-1 center px-5 py-4">
-                    <h3 class="text-center text-white mb-5">Créer un Rapport</h3>
+                    <h3 class="text-center text-white mb-5">Modifier un Rapport</h3>
                     <form>
                         <div class="form-group">
                             <div class="input-group mb-2 d-flex flex-column">
@@ -41,9 +41,9 @@
                             </div>
                         </div>
                         <div class="form-group d-flex mt-4">
-                            <button type="submit"
-                                class="btnSubmit d-block m-auto rounded-pill bg-transparent text-primary px-3 py-2 border-primary fs-5 ">Créer</button>
-                            <button id="annuler"
+                            <button type="submit" id="valider"
+                                class="btnSubmit d-block m-auto rounded-pill bg-transparent text-primary px-3 py-2 border-primary fs-5 ">Valider</button>
+                            <button type="button" id="annuler"
                                 class="btnSubmit d-block m-auto rounded-pill bg-transparent text-danger px-3 py-2 border-danger fs-5 ">Annuler</button>
                         </div>
                     </form>

@@ -1,5 +1,4 @@
 async function logout() {
-    console.log("ok")
     const url = `http://localhost:3002/gsb/logout`;
 
     const responseJson = await fetch(url, {
