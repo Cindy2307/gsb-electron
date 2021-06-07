@@ -1,6 +1,4 @@
 const { ipcRenderer } = require('electron')
-const { remote } = require('electron')
-const mainProcess = remote.require('./main.js')
 const newWindowButton = document.querySelector("#newWindow")
 
 async function login() {
@@ -25,13 +23,12 @@ async function login() {
 
     if (responseJson.status === 200) {
         response = await responseJson.json();
-        ipcRenderer.send("getRole", [response.role, login]);
+        ipcRenderer.send("getRole", [login]);
     }
 }
 
 newWindowButton.addEventListener("click", (e) => {
     e.preventDefault();
     login();
-    mainProcess.createWindow(400, 600, './src/views/newWindow.html', false, 'newWindow')
 })
 

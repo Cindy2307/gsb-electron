@@ -1,4 +1,5 @@
 async function logout() {
+    console.log("ok")
     const url = `http://localhost:3002/gsb/logout`;
 
     const responseJson = await fetch(url, {
@@ -9,8 +10,6 @@ async function logout() {
     });
     
     if (responseJson.status === 200) {
-        mainProcess.createWindow(800, 600, './src/views/index.html', false, 'index')
-        localStorage.clear()
-        mainProcess.getWindow("newWindow").close()
+        ipcRenderer.send('deconnexion')
     } 
 }

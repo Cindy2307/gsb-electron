@@ -1,13 +1,32 @@
+const { ipcRenderer } = require("electron");
 const form = document.querySelector("form");
 const logo = document.querySelector("#logo");
+const deconnexion = document.querySelector("#deconnexion")
+
+deconnexion.addEventListener("click", (e) => {
+     e.preventDefault()
+     logout()
+})
 
 logo.addEventListener("click", (e) => {
     e.preventDefault();
-    document.location.href = "../html/rapportsListe.html";
+    logout()
 });
 
+ipcRenderer.on("createRapportFromMain", (event, data) => {
+    document.querySelector("#bilan").value = "";
+    document.querySelector("#motif").value = "";
+    document.querySelector("#pseudo").innerHTML =  data[0]
+    localStorage.setItem("visiteurId", data[0]);
+})
+
+form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    createRapport();
+})
+
 async function createRapport() {
-    const url = `http://localhost:3000/gsb/visiteur/3/rapport`;
+    const url = `http://localhost:3002/gsb/visiteur/${localStorage.getItem("visiteurId")}/rapport`;
     let response = "";
     const formData = new FormData(form);
     let object = {};
@@ -17,6 +36,7 @@ async function createRapport() {
     });
 
     const responseJson = await fetch(url, {
+        credentials: 'include',
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -30,12 +50,7 @@ async function createRapport() {
     if (responseJson.status === 200) {
         response = await responseJson.json();
         alert("Le rapport a bien été créé.");
-        document.location.href = "../html/rapportsListe.html";
+        ipcRenderer.send("createRapportClose", [localStorage.getItem("visiteurId")]);
     }
 }
-
-form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    createRapport();
-});
 

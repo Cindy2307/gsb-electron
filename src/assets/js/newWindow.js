@@ -1,23 +1,26 @@
 const { ipcRenderer } = require('electron')
-const { remote } = require('electron')
-const mainProcess = remote.require('./main.js')
 const rapports = document.querySelector("#rapports");
 const creer = document.querySelector("#creer");
 const liste = document.querySelector("#idRapport");
-//const deconnexion = document.querySelector("#deconnexion")
+const deconnexion = document.querySelector("#deconnexion")
 
-// deconnexion.addEventListener("click", (e) => {
-//     e.preventDefault()
-//     logout()
-// })
+deconnexion.addEventListener("click", (e) => {
+     e.preventDefault()
+     logout()
+})
 
 ipcRenderer.on("dataFromMain", (event, data) => {
-    document.querySelector("#pseudo").insertAdjacentHTML("beforeend", data[1])
+    document.querySelector("#pseudo").innerHTML =  data[0]
+    getRapportByVisiteurId(data);
+})
+
+ipcRenderer.on("deleteRapportFromMain", (event, data) => {
     getRapportByVisiteurId(data);
 })
 
 async function getRapportByVisiteurId(data) {
-    const url = `http://localhost:3002/gsb/visiteur/${data[1]}/rapport`;
+    rapports.innerHTML = ""
+    const url = `http://localhost:3002/gsb/visiteur/${data[0]}/rapport`;
     let response = "";
 
     const responseJson = await fetch(url, {
@@ -41,7 +44,6 @@ async function getRapportByVisiteurId(data) {
         );
     } else {
         document.querySelector("#labels").style.display = "flex";
-        rapports.innerHTML = ""
         for (let rapport of response) {
             const date = new Date(rapport.date);
 
@@ -79,14 +81,12 @@ async function getRapportByVisiteurId(data) {
 
             rapportFiche.addEventListener("click", (e) => {
                 e.preventDefault();
-                mainProcess.createWindow(400, 600, './src/views/ficheRapport.html', false, 'ficheRapport')
-                ipcRenderer.send("getRapportId", [data[1], rapport.id]);
+                ipcRenderer.send("getRapportId", [data[0], rapport.id]);
             })
 
             modifier.addEventListener("click", (e) => {
                 e.preventDefault();
-                mainProcess.createWindow(400, 600, './src/views/modifierRapport.html', false, 'modifierRapport')
-                ipcRenderer.send("updateRapportById", [data[1], rapport.id, rapport.bilan, rapport.motif]);
+                ipcRenderer.send("updateRapportById", [data[0], rapport.id, rapport.bilan, rapport.motif]);
             })
 
             supprimer.addEventListener("click", (e) => {
@@ -99,10 +99,13 @@ async function getRapportByVisiteurId(data) {
         }
     }
 
+    document.querySelector("#idRapport").addEventListener("change", () => {
+        ipcRenderer.send("getRapportId", [data[0], document.querySelector("#idRapport").value]);
+    })
+
     creer.addEventListener("click", (e) => {
     e.preventDefault();
-    mainProcess.createWindow(400, 600, './src/views/creerRapport.html', false, 'creerRapport')
-    ipcRenderer.send("createRapport", data[1]);
+    ipcRenderer.send("createRapport", data);
 })
 }
 

@@ -12,12 +12,10 @@ async function deleteRapport(visiteurId) {
     
     if (responseJson.status === 200) {
         response = await responseJson.json();
-        let notification = new Notification([
-            title= "Suppression de rapport<br>",
-            body = "Le rapport a bien été supprimé.",
-            timeoutType=
-        ]);
-        notification.show();
-        getRapportByVisiteurId(visiteurId)
+        let notification = new Notification("Suppression de rapport", {
+            body: "Le rapport a bien été supprimé."
+        });
+        ipcRenderer.send("deleteRapport", [visiteurId])
+        await notification.show();
     } 
 }
